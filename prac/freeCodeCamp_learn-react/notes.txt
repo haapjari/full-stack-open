@@ -1,0 +1,18 @@
+- JavaScript, React
+
+## Learn React JS - Full Course for Beginners - Tutorial 2019
+## https://www.youtube.com/watch?v=DLX62G4lc44
+## 43:05 - 5:05:33
+
+## https://www.youtube.com/watch?v=m_u6P5k0vP0
+
+22.5.2020
+---------
+
+- Build components from JSX (HTML) and compose them together.
+
+- VSCode Shortcut: Ctrl + P -> Search File
+- VSCode Shortcut: Ctrl + Shift + P -> Universal Search
+- VSCode Shortcut: Alt + Number -> Move to different tab.
+- VSCode Shortcut: Ctrl + Shift + ö -> New Terminal 
+- VSCode Shortcut: Ctrl + Shift + E - > Open Explorer

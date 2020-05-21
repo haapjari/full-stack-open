@@ -1,4 +1,9 @@
+/**
+ * This is a Person Class
+ */
+
 class Person {
+
     constructor(name, age) {
       this.name = name
       this.age = age
@@ -12,4 +17,4 @@ class Person {
   arto.greet()
 
   const juhq = new Person('Juha Tauriainen', 48)
-  juhq.greet()
+  juhq.greet()  
