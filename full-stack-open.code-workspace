@@ -4,8 +4,4 @@
 			"path": "."
 		}
 	],
-	"settings": {
-		"editor.fontFamily": "Ubuntu Mono",
-		"editor.fontSize": 24
-	}
 }
