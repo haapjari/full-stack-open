@@ -1,52 +1,24 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const History = (props) => {
-  if (props.allClicks.length === 0) {
-    return (
-      <div>
-        the app is used by pressing the buttons
-      </div>
-    )
-  }
-
-  return (
-    <div>
-      button press history: {props.allClicks.join(' ')}
-    </div>
-  )
-}
-
-const Button = ({ onClick, text }) => (  
-  <button onClick={onClick}>    
-    {text}  
-  </button>
-)
-
 const App = (props) => {
-  const [left, setLeft] = useState(0)
-  const [right, setRight] = useState(0)
-  const [allClicks, setAll] = useState([])
-  
-  const handleLeftClick = () => {
-    setAll(allClicks.concat('L'))
-    setLeft(left + 1)
+  const [value, setValue] = useState(10)
+
+  const handleClick = () => {
+    console.log('clicked the button')
+    setValue(0)
   }
-  
-  const handleRightClick = () => {
-    setAll(allClicks.concat('R'))
-    setRight(right + 1)
+
+  const addition = () => {
+    console.log('clicked the button')
+    setValue(value + 1)
   }
 
   return (
     <div>
-      <div>
-        {left}
-        <Button onClick={handleLeftClick} text='left' />
-        <Button onClick={handleRightClick} text='right' />
-        {right}        
-        <History allClicks={allClicks} />
-      </div>
+      {value}
+      <button onClick={handleClick}>reset to zero</button>
+      <button onClick={addition}>add one</button>
     </div>
   )
 }
