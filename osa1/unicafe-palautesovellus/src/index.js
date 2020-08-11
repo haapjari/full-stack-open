@@ -29,6 +29,23 @@ const App = (props) => {
     setBad(newBad)
   }
 
+  const calcAvg = (good, neutral, bad) => {
+    
+    const totalGood = good * 1
+    const totalBad = bad * (-1)
+    const totalFeedback = good + neutral + bad
+    const totalSum = (totalGood + totalBad) / totalFeedback
+    
+    return totalSum
+  }
+
+  const calcPositive = (good, neutral, bad) => {
+
+    const feedbackAmount = good + neutral + bad
+    const positivePercentage = good / feedbackAmount
+    return positivePercentage * 100
+  }
+
   // Variables END
 
   return (
@@ -42,6 +59,9 @@ const App = (props) => {
       <p>good {good}</p>
       <p>neutral {neutral}</p>
       <p>bad {bad}</p>
+      <p>all {good + neutral + bad}</p>
+      <p>average {calcAvg(good, neutral, bad)}</p>
+      <p>positive {calcPositive(good, neutral, bad)} %</p>
     </div>
   )
 }
