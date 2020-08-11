@@ -3,16 +3,33 @@ import ReactDOM from 'react-dom';
 
 // Components START
 
-const Button = () => {
-
+/**
+ * Exercise: 1.8
+ * Component that handles Statistics
+ * @param {*} good Feedbacks as "good"
+ * @param {*} neutral Feedbacks as "neutral"
+ * @param {*} bad Feedbacks as "bad"
+ */
+const Statistics = (props) => {
+  /*
+   * TODO:
+   *    - Extract Statistics to this Component 
+   */
 }
 
 // Components END
 
+/**
+ * App Component
+ * @param {*} props 
+ */
 const App = (props) => {
 
-  // Variables START
+  // Variables and Functions START
 
+  /**
+   * State
+   */
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
@@ -29,6 +46,12 @@ const App = (props) => {
     setBad(newBad)
   }
 
+  /**
+   * Function calculates Feedback Average
+   * @param {*} good equals +1
+   * @param {*} neutral equals 0
+   * @param {*} bad equals -1
+   */
   const calcAvg = (good, neutral, bad) => {
     
     const totalGood = good * 1
@@ -39,6 +62,12 @@ const App = (props) => {
     return totalSum
   }
 
+  /**
+   * This Function Calculates Positive % of all Feedback
+   * @param {*} good Feedbacks as "good"
+   * @param {*} neutral Feedbacks as "neutral"
+   * @param {*} bad Feedbacks as "bad"
+   */
   const calcPositive = (good, neutral, bad) => {
 
     const feedbackAmount = good + neutral + bad
@@ -46,7 +75,7 @@ const App = (props) => {
     return positivePercentage * 100
   }
 
-  // Variables END
+  // Variables and Functions END
 
   return (
     <div>
