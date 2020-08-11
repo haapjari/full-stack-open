@@ -1,6 +1,12 @@
 import React , { useState } from 'react';
 import ReactDOM from 'react-dom';
 
+/**
+ * @author haapjari (www.github.com/haapjari)
+ * @version 12.8.2020
+ * This is a assignment React Application of Full-Stack Open (www.fullstackopen.fi)
+ */
+
 // Components START
 
 /**
