@@ -21,19 +21,27 @@ const App = (props) => {
     setGood(newGood)
   }
 
+  const setToNeutral = (newNeutral) => {
+    setNeutral(newNeutral)
+  }
+
+  const setToBad = (newBad) => {
+    setBad(newBad)
+  }
+
   // Variables END
 
   return (
     <div>
       <h1>give feedback</h1>
       <button onClick={() => setToGood(good + 1)}>good</button>
-      <button>neutral</button>
-      <button>bad</button>
+      <button onClick={() => setToNeutral(neutral + 1)}>neutral</button>
+      <button onClick={() => setToBad(bad + 1)}>bad</button>
 
       <h1>statistics</h1>
-      <p>good</p>{good}
-      <p>neutral</p>{neutral}
-      <p>bad</p>{bad}
+      <p>good {good}</p>
+      <p>neutral {neutral}</p>
+      <p>bad {bad}</p>
     </div>
   )
 }
