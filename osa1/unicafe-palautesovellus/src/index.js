@@ -9,10 +9,29 @@ import ReactDOM from 'react-dom';
 
 // Components START
 
+/**
+ * Feedback Button
+ * @param {*} props 
+ */
 const Button = (props) => {
-  console.log("Hello World")
+  
+  return (
+    <button onClick={props.handleClick}>
+      {props.text}
+    </button>
+  )  
+}
+
+/**
+ * Logic for Button
+ * @param {*} props 
+ */
+const StatisticLine = (props) => {
+  console.log("StatisticLine")
   return null
 }
+
+
 
 /**
  * Exercise: 1.8
@@ -103,17 +122,20 @@ const App = (props) => {
     setBad(newBad)
   }
 
+  const handleClick = () => {
+    console.log('clicked the button')
+  }
+
   // Variables and Functions END
 
   return (
     <div>
       <h1>give feedback</h1>
-      <button onClick={() => setToGood(good + 1)}>good</button>
-      <button onClick={() => setToNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setToBad(bad + 1)}>bad</button>
+      <Button handleClick={() => setToGood(good + 1)} text="good"/>
+      <Button handleClick={() => setToNeutral(neutral + 1)} text="neutral"/>
+      <Button handleClick={() => setToBad(bad + 1)} text="bad"/>
       
       <Statistics good={good} neutral={neutral} bad={bad}/>
-      <Button />
     </div>
   )
 }
