@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 /**
  * @author haapjari (www.github.com/haapjari)
- * @version 13.8.2020
+ * @version 16.8.2020
  * This is a assignment React Application of Full-Stack Open (www.fullstackopen.fi)
  */
 
@@ -27,11 +27,22 @@ const Button = (props) => {
  * @param {*} props 
  */
 const StatisticLine = (props) => {
-  console.log("StatisticLine")
-  return null
+
+  if (props.text === "positive") {
+
+    return (
+      <div>
+        {props.text} {props.value} %
+      </div> 
+    )
+  }
+
+  return (
+    <div>
+      {props.text} {props.value}
+    </div>
+  )
 }
-
-
 
 /**
  * Exercise: 1.8
@@ -74,12 +85,12 @@ const Statistics = (props) => {
     return (
       <div>
         <h1>statistics</h1>
-        <p>good {props.good}</p>
-        <p>neutral {props.neutral}</p>
-        <p>bad {props.bad}</p>
-        <p>all {props.good + props.neutral + props.bad}</p>
-        <p>average {calcAvg(props.good, props.neutral, props.bad)}</p>
-        <p>positive {calcPositive(props.good, props.neutral, props.bad)} %</p>
+        <StatisticLine text="good" value={props.good} /> 
+        <StatisticLine text="neutral" value={props.neutral} />
+        <StatisticLine text="bad" value={props.bad}/>
+        <StatisticLine text="all" value={props.good + props.neutral + props.bad}/>
+        <StatisticLine text="average" value={calcAvg(props.good, props.neutral, props.bad)}/>
+        <StatisticLine text="positive" value={calcPositive(props.good, props.neutral, props.bad)}/>
       </div>
     )
   }
