@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 /**
  * @author haapjari (www.github.com/haapjari)
- * @version 16.8.2020
+ * @version 17.8.2020
  * This is a assignment React Application of Full-Stack Open (www.fullstackopen.fi)
  */
 
@@ -28,18 +28,34 @@ const Button = (props) => {
  */
 const StatisticLine = (props) => {
 
+  if (props.text === "headline") {
+    return (
+      <div>
+        <h1>statistics</h1>
+      </div>
+    )
+  }
+
+  if (props.text === "feedback") {
+    return (
+      <div>
+        <p>No feedback given</p>
+      </div>
+    )
+  }
+
   if (props.text === "positive") {
 
     return (
       <div>
-        {props.text} {props.value} %
+          {props.text} {props.value}
       </div> 
     )
   }
 
   return (
     <div>
-      {props.text} {props.value}
+        {props.text} {props.value}
     </div>
   )
 }
@@ -80,26 +96,63 @@ const Statistics = (props) => {
     const positivePercentage = totalGood / totalFeedback
     return positivePercentage * 100
   }
-
-  if (totalFeedback !== 0) {
-    return (
-      <div>
-        <h1>statistics</h1>
-        <StatisticLine text="good" value={props.good} /> 
-        <StatisticLine text="neutral" value={props.neutral} />
+  /**
+   * 
+        
         <StatisticLine text="bad" value={props.bad}/>
         <StatisticLine text="all" value={props.good + props.neutral + props.bad}/>
         <StatisticLine text="average" value={calcAvg(props.good, props.neutral, props.bad)}/>
         <StatisticLine text="positive" value={calcPositive(props.good, props.neutral, props.bad)}/>
-      </div>
+   */
+
+  if (totalFeedback !== 0) {
+    return (
+      <table>
+        <tbody>
+          <tr>
+            <td><StatisticLine text="headline" /></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text="good" /></td>
+            <td><StatisticLine value={props.good} /></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text="neutral" /></td>
+            <td><StatisticLine value={props.neutral} /></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text="bad" /></td>
+            <td><StatisticLine value={props.bad} /></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text="all" /></td>
+            <td><StatisticLine value={props.good + props.neutral + props.bad} /></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text="average" /></td>
+            <td><StatisticLine value={calcAvg(props.good, props.neutral, props.bad)} /></td>
+          </tr>
+          <tr>
+            <td><StatisticLine text="positive" /></td>
+            <td><StatisticLine value={calcPositive(props.good, props.neutral, props.bad) + " %"} /></td>
+          </tr>
+        </tbody>
+      </table>
     )
   }
 
   return (
-    <div>
-      <h1>statistics</h1>
-      <p>No feedback given</p>
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td><StatisticLine text="headline" /></td>
+        </tr>
+        <tr>
+          <td><StatisticLine text="feedback" /></td>
+        </tr>
+      </tbody>
+    </table>
+
   )
   
 }
