@@ -2,6 +2,12 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 /**
+ * @author haapjari (www.github.com/haapjari)
+ * @version 18.8.2020
+ * This is a assignment React Application of Full-Stack Open (www.fullstackopen.fi)
+ */
+
+/**
  * Feedback Button
  * @param {*} props 
  */
@@ -11,22 +17,51 @@ const Button = (props) => {
   )  
 }
 
+/**
+ * Anecdote Component
+ * @param {*} props 
+ */
 const Anecdote = (props) => {
 
-  const [point, setPoint] = useState(0)
-  const points = 0
-
   return (
-    <div>
-      {props.value} {props.text}
-    </div>
+    <table>
+      <tbody>
+        <tr>
+          <td>{props.value} {props.text}</td>
+        </tr>
+      </tbody>
+    </table>
   )
 }
 
+/**
+ * Function that Calculates Index with Most Votes
+ * @param {} props 
+ */
+const calcMostVotes = (props) => {
+    
+  let biggestIndex = 0
+
+  for (let i = 0; i < props.length; i++) {
+    if (props[i] > props[biggestIndex]) {
+      biggestIndex = i
+    }
+  }
+
+  return (
+    biggestIndex
+  )
+}
+
+/**
+ * Main Application
+ * @param {} props 
+ */
 const App = (props) => {
 
   const [selected, setSelected] = useState(0)
   const [vote, setVote] = useState(new Array(6 + 1).join('0').split('').map(parseFloat))
+  const [winner, setWinner] = useState(0)
 
   const randomNumber = () => {
     return (
@@ -34,14 +69,19 @@ const App = (props) => {
     )
   }
 
+  /**
+   * Handler for Vote
+   */
   const handleVoteClick = () => {
     const copy = [...vote]
     copy[selected] += 1
     setVote(copy)
+    setWinner(calcMostVotes(copy))
   }
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <Anecdote value={props.vote} text={props.anecdotes[selected]}/>
       <table>
         <tbody>
@@ -54,7 +94,8 @@ const App = (props) => {
           </tr>
         </tbody>
       </table>
-
+      <h1>Anecdote with the most votes</h1>
+      <Anecdote text={props.anecdotes[winner]}/>
     </div>
   )
 }
