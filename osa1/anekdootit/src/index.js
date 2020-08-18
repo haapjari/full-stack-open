@@ -6,19 +6,20 @@ import ReactDOM from 'react-dom'
  * @param {*} props 
  */
 const Button = (props) => {
-  
   return (
-    <button onClick={props.handleClick}>
-      {props.text}
-    </button>
+    <button onClick={props.handleClick}>{props.text}</button>
   )  
 }
 
 const Anecdote = (props) => {
 
+  const [point, setPoint] = useState(0)
+
+  const points = 0
+
   return (
     <div>
-      <p>Anecdote Component</p>
+      {props.value} {props.text}
     </div>
   )
 }
@@ -26,14 +27,7 @@ const Anecdote = (props) => {
 const App = (props) => {
 
   const [selected, setSelected] = useState(0)
-
-  const showNextAnecdote = () => {
-    console.log('clicked showNextAnecdote')
-  }
-
-  const handleClick = () => {
-    console.log('clicked the button')
-  }
+  const [vote, setVote] = useState(0)
 
   const randomNumber = () => {
     return (
@@ -43,16 +37,19 @@ const App = (props) => {
 
   return (
     <div>
+      <Anecdote value={props.vote} text={props.anecdotes[selected]}/>
       <table>
         <tbody>
           <tr>
-            <td>{props.anecdotes[selected]}</td>
+            <td>has {vote} votes</td>
           </tr>
           <tr>
+            <td><Button handleClick={() => setVote(vote + 1)} text="vote"/></td>
             <td><Button handleClick={() => setSelected(randomNumber())} text="next anecdote"/></td>
           </tr>
         </tbody>
       </table>
+
     </div>
   )
 }
