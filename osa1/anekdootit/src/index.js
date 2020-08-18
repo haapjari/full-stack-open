@@ -14,7 +14,6 @@ const Button = (props) => {
 const Anecdote = (props) => {
 
   const [point, setPoint] = useState(0)
-
   const points = 0
 
   return (
@@ -27,12 +26,18 @@ const Anecdote = (props) => {
 const App = (props) => {
 
   const [selected, setSelected] = useState(0)
-  const [vote, setVote] = useState(0)
+  const [vote, setVote] = useState(new Array(6 + 1).join('0').split('').map(parseFloat))
 
   const randomNumber = () => {
     return (
       Math.floor(Math.random() * 6)
     )
+  }
+
+  const handleVoteClick = () => {
+    const copy = [...vote]
+    copy[selected] += 1
+    setVote(copy)
   }
 
   return (
@@ -41,10 +46,10 @@ const App = (props) => {
       <table>
         <tbody>
           <tr>
-            <td>has {vote} votes</td>
+            <td>has {vote[selected]} votes</td>
           </tr>
           <tr>
-            <td><Button handleClick={() => setVote(vote + 1)} text="vote"/></td>
+            <td><Button handleClick={() => handleVoteClick()} text="vote"/></td>
             <td><Button handleClick={() => setSelected(randomNumber())} text="next anecdote"/></td>
           </tr>
         </tbody>
