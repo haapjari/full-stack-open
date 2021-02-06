@@ -11,14 +11,14 @@ import Note from './components/Note';
 const notes = [
   {
     id: 1,
-    content: 'HTML is easy',
+    content: 'HTML is hard',
     date: '2020-01-10T17:30:31.098Z',
     important: true
   },
   {
     id: 2,
     content: 'Browser can execute only Javascript',
-    date: '2020-01-10T18:39:34.091Z',
+  date: '2020-01-10T18:39:34.091Z',
     important: false
   },
   {
