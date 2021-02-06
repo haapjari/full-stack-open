@@ -1,12 +1,5 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Note from './components/Note'; 
-
-/**
- * @author haapjari (www.github.com/haapjari)
- * @version 20.8.2020
- * This is a assignment React Application of Full-Stack Open (www.fullstackopen.fi)
- */
+import React from 'react'
+import ReactDOM from 'react-dom'
 
 const notes = [
   {
@@ -18,7 +11,7 @@ const notes = [
   {
     id: 2,
     content: 'Browser can execute only Javascript',
-  date: '2020-01-10T18:39:34.091Z',
+    date: '2020-01-10T18:39:34.091Z',
     important: false
   },
   {
@@ -29,21 +22,24 @@ const notes = [
   }
 ]
 
-const App = ({ notes }) => {
-  
+const App = (props) => {
+  const { notes } = props
+
   return (
     <div>
       <h1>Notes</h1>
       <ul>
-        {notes.map(note => 
-                    <Note key={note.id} note={note} />        
-        )}      
+          {notes.map(note => 
+            <li key={note.id}>
+              {note.content}
+            </li>
+          )}
       </ul>
     </div>
   )
 }
 
 ReactDOM.render(
-  <App notes={notes}/>,
+  <App notes={notes} />,
   document.getElementById('root')
-);
+)
