@@ -11,6 +11,8 @@ const Total = (props) => {
     }, 0)
     */
 
+    // 2a kurssitiedot step 7
+
     var parts = props.course.parts;
     const totalExercises = parts.reduce((sum, element) => sum + element.exercises, 0)
 
