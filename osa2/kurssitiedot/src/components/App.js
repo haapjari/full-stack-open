@@ -1,6 +1,8 @@
 import React from 'react'
 import Courses from './Courses'
 
+/* This already passes the 2.5 part */
+
 const App = () => {
     const course = [
         {
