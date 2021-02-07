@@ -1,9 +1,10 @@
 import React from 'react'
-import Header from './Header'
 
 const Content = (props) => {
 
     const courses = props.course;
+
+    /* testing how the data is laid off in JSON object */
 
     /*
     console.log( courses[0].name )
@@ -17,43 +18,29 @@ const Content = (props) => {
     console.log( courses[1].parts[1].exercises )
     */
 
-    /*
-    var i = 0
-    var courseData = courses.map(function(element) {
-      return element.parts[i].name + ' ' + element.parts[i].exercises
-    })
-    */
+    /* strategy is to create list with rendered values in special order in order to render data correctly */
 
     var courseData = []
 
-    for (var i = 0; i < courses.length; i++) {
-      // console.log(courses[i].parts[0].name )
-      // courses[i].parts[j].length
-      // console.log(courses[0].parts.length)
+     for (var i = 0; i < courses.length; i++) {
+
+      /* first loop adds nested list to array for each course, the first key is course name which is saved as h3 */
+
       var appendData = []
-      appendData.push(courses[i].name)
+      var totalExercises = 0
+
+      appendData.push(<h3 key={courses[i].name}>{courses[i].name}</h3>)
       courseData.push(appendData)
-      // courseData[i].push(childData)
 
       for (var j = 0; j < courses[i].parts.length; j++) {
 
-          // courseData[i].push(<p key={courses[i].parts[j].name}>{courses[i].parts[j].name + ' ' + courses[i].parts[j].exercises}</p>)
+        /* second loop fills the desired details of the course - name, exercises and keeps track of the total exercises, which is rendered last */
+
           courseData[i].push(<p key={courses[i].parts[j].name}>{courses[i].parts[j].name + ' ' + courses[i].parts[j].exercises}</p>)
-
+          totalExercises += courses[i].parts[j].exercises
       }
-
+      appendData.push(<h4 key={courses[i].id}>total of {totalExercises} exercises</h4>)
     }
-
-    // console.log(courseData)
-    // console.log(courseData[0])
-    
-    // var courseData = 0
-   
-    /*
-      var names = animals.map(function(animal) {
-        return animal.name + ' is a ' + animal.species
-    })
-    */
 
     return (
       <div>
