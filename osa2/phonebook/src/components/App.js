@@ -3,21 +3,28 @@ import Person from './Person'
 
 const App = ( props ) => {
   const [ persons, setPersons ] = useState ([
-    { name: 'Arto Hellas',
-      number: '044 1234567',
-      id: 1
-    }
+    { name: 'Arto Hellas', number: '044 1234567', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '39-44-5323523', id: 3 }
   ])
   // newName state is meant for controlling the form input element
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
+  const [ newFilter, setNewFilter ] = useState('')
+  
+  // refactor --> useEffect
+  const [ newPersonList, setNewPersonList ] = useState([
+    { name: 'Arto Hellas', number: '044 1234567', id: 1 },
+    { name: 'Ada Lovelace', number: '39-44-5323523', id: 2 },
+    { name: 'Dan Abramov', number: '39-44-5323523', id: 3 }
+  ])
 
   const addName = (event) => {
       event.preventDefault()
 
       /* create new object for the person, which will receive its content from components newName state */ 
       const nameObject = {
-        name: newName,
+        name: newName.trim(),
         number: newNumber,
         id: persons.length + 1,
       }
@@ -39,26 +46,59 @@ const App = ( props ) => {
         setNewNumber('')
       } else {
         setPersons(persons.concat(nameObject))
+        /* staten päivitys */
+        setNewPersonList(persons.concat(nameObject))
         console.log(`${newName} succesfully added to phonebook`)
         setNewName('')
         setNewNumber('')
       }
 
-      console.log(persons)
+      // console.log(persons)
     }
 
-  const handleNameChange = (event) => {
-    // console.log(event.target.value)
-    setNewName(event.target.value)
-  }
+      const handleNameChange = (event) => {
+        // console.log(event.target.value)
+        setNewName(event.target.value)
+      }
 
-  const handleNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
+      const handleNumberChange = (event) => {
+        setNewNumber(event.target.value)
+      }
+
+      const handleFilterChange = (event) => {
+        setNewFilter(event.target.value)
+      }
+
+      const filterResults = (searchQuery) => {
+
+        //  refactor -> regex
+        const results = persons.filter(person => person.name.toLowerCase().includes(searchQuery))
+        // console.log(persons)
+
+        if (results.length < 1) {
+          setNewPersonList(persons)
+          return
+        }
+
+        setNewPersonList(results)
+      }
 
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <h3>search</h3>
+        <div>
+            <input 
+              value={newFilter}
+              onChange={(event) => {
+                handleFilterChange(event)
+                filterResults(event.target.value.toLowerCase())
+              }}
+            />
+        </div>
+
+      <h2>add people</h2>
       <form onSubmit={addName}>
         <div>
           name: 
@@ -76,12 +116,14 @@ const App = ( props ) => {
           <button type="submit">add</button>
         </div>
       </form>
+
       <h2>Numbers</h2>
       <ul>
-        {persons.map((person, i) =>
+        {newPersonList.map((person, i) =>
           <Person key={i} person={person}/>
         )}
       </ul>
+
     </div>
   )
 }
