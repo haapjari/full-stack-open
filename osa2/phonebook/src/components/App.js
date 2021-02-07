@@ -4,11 +4,13 @@ import Person from './Person'
 const App = ( props ) => {
   const [ persons, setPersons ] = useState ([
     { name: 'Arto Hellas',
-      id: 1 
+      number: '044 1234567',
+      id: 1
     }
   ])
   // newName state is meant for controlling the form input element
   const [ newName, setNewName ] = useState('')
+  const [ newNumber, setNewNumber ] = useState('')
 
   const addName = (event) => {
       event.preventDefault()
@@ -16,7 +18,7 @@ const App = ( props ) => {
       /* create new object for the person, which will receive its content from components newName state */ 
       const nameObject = {
         name: newName,
-        // date: new Date().toISOString(),
+        number: newNumber,
         id: persons.length + 1,
       }
 
@@ -34,16 +36,24 @@ const App = ( props ) => {
       if (checkValue === 1) {
         alert(`${newName} is already added to phonebook`)
         setNewName('') 
+        setNewNumber('')
       } else {
         setPersons(persons.concat(nameObject))
         console.log(`${newName} succesfully added to phonebook`)
         setNewName('')
+        setNewNumber('')
       }
+
+      console.log(persons)
     }
 
   const handleNameChange = (event) => {
     // console.log(event.target.value)
     setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
   return (
@@ -57,6 +67,11 @@ const App = ( props ) => {
             onChange={handleNameChange}
           />
         </div>
+          number:
+          <input 
+            value={newNumber}
+            onChange={handleNumberChange}
+          />
         <div>
           <button type="submit">add</button>
         </div>
