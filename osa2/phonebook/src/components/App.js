@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Person from './Person'
 import PersonForm from './PersonForm'
 import Search from './Search'
 import NumberList from './NumberList'
