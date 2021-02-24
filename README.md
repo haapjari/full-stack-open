@@ -4,7 +4,7 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 
 ---
 
-## Pisteseuranta
+## Seuranta
 
 | osa  | tavoite  | suoritettu | suorituspäivämäärä |
 | ---  | ---      | ---        | ---                |
@@ -27,11 +27,7 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 
 ---
 
-## Palauttaminen
-
----
-
-## Suorittaminen
+## Ohjeet
 
 ### 5 - 7 opintopistettä
 
