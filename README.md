@@ -2,7 +2,40 @@
 
 Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 
+---
+
 ## Pisteseuranta
+
+| osa  | tavoite  | suoritettu | suorituspäivämäärä |
+| ---  | ---      | ---        | ---                |
+| 0    | 6        | 6          | 15.3.2020          |
+| 1    | 14       | 14         | 18.8.2020          |
+| 2    | 13       | 11         |                    |
+| 3    | 18       | 0          |                    |
+| 4    | 11       | 0          |                    |
+| 5    | 16       | 0          |                    |
+| 6    | 20       | 0          |                    |
+| 7    | 19       | 0          |                    |
+| 8    | 22       | 0          |                    |
+| 9    | 24       | 0          |                    |
+| 10   | 26       | 0          |                    |
+| 11   | 22       | 0          |                    |
+
+| suoritettu yhteensä |
+| ---                 |
+| 31                  |
+
+---
+
+## Palauttaminen
+
+---
+
+## Suorittaminen
+
+### 5 - 7 opintopistettä
+
+Tehtävien suorittamisen lisäksi tulee suorittaa koe Helsingin yliopiston Moodle -järjestelmässä. Kokeen läpipääsyyn riittää 50% kokeen tarjolla olevista pisteistä, eli 12.5 pistettä.
 
 | tehtäviä  | opintopisteitä  | arvosana |
 | ---       | ---             | ---      |
@@ -14,7 +47,27 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 | 83        | 5               | 2        |
 | 72        | 5               | 1        |
 
-## Valmis
-- Osa 0 (15.3.2020)
-- Osa 1 (18.8.2020)
-- Osa 2
+
+### 8 ja 9 opintopisteen suoritus
+
+#### 8 opintopistettä
+
+Suorittamalla vähintään 22/26 tehtävää kurssin kahdeksannesta, GraphQL:ää käsittelevää osasta.
+
+#### 9 opintopistettä
+
+Suorittamalla vähintään 24/27 tehtävää kurssin yhdeksännestä, TypeScriptiä käsittelevästä osasta.
+
+#### 10 opintopistettä
+
+Suorittamalla 19 tehtävää React Native -osiosta.
+
+#### 11 opintopistettä
+
+Suorittamalla 26 tehtävää React Nataive -osiosta.
+
+#### 12 opintopistettä
+
+Suorittamalla kaikki CI/CD osion tehtävät.
+
+---
