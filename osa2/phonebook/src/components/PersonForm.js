@@ -21,9 +21,9 @@ const PersonForm = props => {
         const personObject = {
           name: newName.trim(),
           number: newNumber,
-          id: persons.length + 1,
+          // id: persons.length + 1,
         }
-  
+        
         var checkValue = 0 // very gross way to implement this
         for (var i = 0; i < persons.length; i++) {
   
@@ -40,19 +40,21 @@ const PersonForm = props => {
           setNewName('') 
           setNewNumber('')
         } else {
-          setPersons(persons.concat(personObject))
+          // setPersons(persons.concat(personObject))
           /* staten päivitys */
-          setNewPersonList(persons.concat(personObject))
+          // setNewPersonList(persons.concat(personObject))
+
+          axios
+          .post('http://localhost:3001/persons', personObject)
+          .then(response => {
+              console.log(response)
+          })
+
           console.log(`${newName} succesfully added to phonebook`)
           setNewName('')
           setNewNumber('')
         }
 
-        axios
-          .post('http://localhost:3001/persons', personObject)
-          .then(response => {
-              console.log(response)
-          })
     }
 
     return (
