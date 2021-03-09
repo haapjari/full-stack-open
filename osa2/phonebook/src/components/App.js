@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PersonForm from './PersonForm'
 import Search from './Search'
 import NumberList from './NumberList'
+import personService from '../services/personService'
 
 const App = ( props ) => {
 

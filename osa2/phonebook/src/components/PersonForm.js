@@ -1,4 +1,6 @@
 import React from 'react'
+import personService from '../services/personService'
+import axios from 'axios'
 
 const PersonForm = props => {
 
@@ -16,7 +18,7 @@ const PersonForm = props => {
         event.preventDefault()
   
         /* create new object for the person, which will receive its content from components newName state */ 
-        const nameObject = {
+        const personObject = {
           name: newName.trim(),
           number: newNumber,
           id: persons.length + 1,
@@ -26,7 +28,7 @@ const PersonForm = props => {
         for (var i = 0; i < persons.length; i++) {
   
           // loop over the array, if there is match - truth value to 1
-          if (persons[i].name === nameObject.name) {
+          if (persons[i].name === personObject.name) {
             checkValue = 1
           } 
   
@@ -38,15 +40,19 @@ const PersonForm = props => {
           setNewName('') 
           setNewNumber('')
         } else {
-          setPersons(persons.concat(nameObject))
+          setPersons(persons.concat(personObject))
           /* staten päivitys */
-          setNewPersonList(persons.concat(nameObject))
+          setNewPersonList(persons.concat(personObject))
           console.log(`${newName} succesfully added to phonebook`)
           setNewName('')
           setNewNumber('')
         }
-  
-        // console.log(persons)
+
+        axios
+          .post('http://localhost:3001/persons', personObject)
+          .then(response => {
+              console.log(response)
+          })
     }
 
     return (

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Note from './Note'
+import noteService from '../services/notes'
 
 /* ------------------------------------------------------------ */
 
@@ -9,36 +10,39 @@ const App = ( props ) => {
     const [newNote, setNewNote] = useState('')
     const [showAll, setShowAll] = useState(true)
 
-    /* This part fetches the data from Server */
-    const hook = () => {
-        console.log('effect')
-        axios
-            .get('http://localhost:3001/notes')
-            .then(response => {
-                console.log('promise fulfilled')
-                setNotes(response.data)
-            })
-    }
-
-    // hook = effect 
-    /* By default, effects run after every completed render, but you 
-       can choose to fire it only when certain values have changed.
-    */
-    useEffect(hook, []) // empty array means, that effect is only called after first render
+    useEffect(() => {
+        noteService
+            .getAll()
+                .then(initialNotes => {
+                setNotes(initialNotes)
+                })
+    }, [])
 
     const addNote = (event) => {
         event.preventDefault() // this makes sure that page doesn not reload
 
         /* create new object for the note, and it will reiceve its content from the components newNote state */
         const noteObject = {
+            id: notes.length + 1,
             content: newNote,
             date: new Date().toISOString(),
             important: Math.random() < 0.5,
-            id: notes.length + 1,
         }
-
-        setNotes(notes.concat(noteObject))
-        setNewNote('')
+        /*
+        axios
+            .post('http://localhost:3001/notes', noteObject)
+            .then(response => {
+                // console.log(response)
+                setNotes(notes.concat(response.data))
+                setNewNote('')
+            })
+        */
+       noteService
+            .create(noteObject)
+                .then(returnedNote => {
+                    setNotes(notes.concat(returnedNote))
+                    setNewNote('')
+                })
     }
 
     const handleNoteChange = (event) => {
@@ -50,6 +54,28 @@ const App = ( props ) => {
         ? notes
         : notes.filter(note => note.important === true)
 
+    const toggleImportanceOf = (id) => {
+        const url = `http://localhost:3001/notes/${id}`
+        const note = notes.find(n => n.id === id)
+        const changedNote = { ...note, important: !note.important }
+
+        axios.put(url, changedNote).then(response => {
+            setNotes(notes.map(note => note.id !== id ? note : response.data))
+        })
+
+        noteService
+            .update(id, changedNote)
+            .then(returnedNote => {
+                setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+            })
+            .catch(error => {
+                alert(
+                    `the note '${note.content}' was already deleted from the server`
+                )
+            })
+
+    }
+
     return (
       <div>
             <h1>Notes</h1>
@@ -60,7 +86,11 @@ const App = ( props ) => {
             </div>
             <ul>
                 {notesToShow.map((note) =>
-                    <Note key={note.id} note={note} />
+                    <Note 
+                        key={note.id} 
+                        note={note} 
+                        toggleImportance={() => toggleImportanceOf(note.id)}
+                    />
                 )}
             </ul>
             <form onSubmit={addNote}>
