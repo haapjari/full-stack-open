@@ -6,27 +6,24 @@ import personService from '../services/persons'
 
 const App = ( props ) => {
 
-  
-  const [persons, setPersons] = useState ([])
+	const [persons, setPersons] = useState ([])
 
-  // newName state is meant for controlling the form input element
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
-  const [newFilter, setNewFilter] = useState('')
-  const [newPersonList, setNewPersonList] = useState([])
-
-  /* ------------------------------------------------- */
+	// newName state is meant for controlling the form input element
+	const [newName, setNewName] = useState('')
+	const [newNumber, setNewNumber] = useState('')
+	const [newFilter, setNewFilter] = useState('')
+	// TODO: Document this functionality.  
+	const [newPersonList, setNewPersonList] = useState([])
 
   useEffect(() => {
     personService
       .getAll()
       .then(initialPersons => {
         setPersons(initialPersons)
-        // setNewPersonList(initialPersons)
       })
   }, [])
 
-  /* ------------------------------------------------- */
+/* ------------------------------------------------- */
 
       const handleNameChange = (event) => {
         setNewName(event.target.value)
@@ -40,51 +37,51 @@ const App = ( props ) => {
         setNewFilter(event.target.value)
       }
 
-      /* ------------------------------------------------- */
+/* ------------------------------------------------- */
 
-
-      /* ------------------------------------------------- */
+	/* TODO: 
+	 * Is this functionality supposed to be here or in the NumberList.js file (?)
+	 */
 
       const addName = (event) => {
-        event.preventDefault()
+       	 event.preventDefault()
   
-        /* create new object for the person, which will receive its content from components newName state */ 
-        const personObject = {
-          name: newName.trim(),
-          number: newNumber,
-          // id: persons.length + 1,
-        }
+        /* New personObject 
+	 * 	--> Receives content from components newName state.
+	 */ 	
+        	const personObject = {
+	          name: newName.trim(),
+        	  number: newNumber,
+        	}	
         
-        var checkValue = 0 // very gross way to implement this
+        /* Duplicate checking functionality. 
+	 *	--> checkValue of 0
+	 *	--> Loop over the array
+	 *	--> If there is a duplicate entry in the array
+	 *		--> checkValue to 1
+	 *		--> Alert that there is already a value on phonebook
+	 *		--> Clear State
+	 */ 
+	var checkValue = 0 
         for (var i = 0; i < persons.length; i++) {
   
-          // loop over the array, if there is match - truth value to 1
           if (persons[i].name === personObject.name) {
             checkValue = 1
           } 
-  
         }
   
-        // exercute this if truth value is 1, if its not add person to phone book
         if (checkValue === 1) {
           alert(`${newName} is already added to phonebook`)
           setNewName('') 
           setNewNumber('')
         } else {
-          // setPersons(persons.concat(personObject))
-          /* staten päivitys */
-          // setNewPersonList(persons.concat(personObject))
 
-          /*
-          axios
-          .post('http://localhost:3001/persons', personObject)
-          .then(response => {
-              console.log(response)
-              setPersons(persons.concat(personObject))
-              setNewPersonList(persons.concat(personObject))
-          })
-          */
-
+	/* Create personService, which has all the necessary API functionality.
+	 * --> Create personObject with contents of the form.
+	 *  --> Update Person List status, concat the new object to the list.
+	 *  --> Clear the setters.
+	 *  --> After this, log the succesfully entered Object's name.
+	 */ 
           personService
           .create(personObject)
               .then(returnedPerson => {
@@ -95,11 +92,56 @@ const App = ( props ) => {
           })
 
           console.log(`${newName} succesfully added to phonebook`)
-          setNewName('')
+
+	// TODO: Are these necessary?
+	  setNewName('')
           setNewNumber('')
         }
-
     }    
+
+	/* Delete Functinality.
+	 * 	--> TODO: Find the id of the object, which has the delete button.
+	 * 	--> Find the index of certain id in persons list.
+	 * 	--> Delete that entry from the list with splice.
+	 * 	--> Create personService to call the delete to API
+	 * 	--> Update state and log the succesfully deleted entry to the console.
+	 */
+
+	const deletePerson = (name, id) => {
+		// console.log('testing delete')
+		// console.log(id) // this is a mouse event
+		// const id = 1
+		return () => {
+			if (window.confirm(`Confirm deletion of ${name}`)) {
+				console.log("attempting the delete")
+				personService 
+					.deleteId(id)
+				.then(() => {
+					setPersons(persons.filter(n => n.id !== id))
+					setNewName('')
+					setNewNumber('')
+				})
+				.catch(error => {
+					setPersons(persons.filter(n => n.name !== name))
+				})
+			}
+		}
+		/*
+		console.log(name)
+
+		const index = persons.indexOf(id)
+		if (index > -1) {
+			persons.splice(index, 1)
+		}
+
+	        personService
+        	    .deleteId(id)
+                	.then(returnedPerson => {
+	                  setPersons(persons.splice(index, 1))
+        	          console.log(`${id} succesfully deleted from phonebook`)
+                	})
+		*/
+ 	}
 
   return (
     <div>
@@ -128,6 +170,9 @@ const App = ( props ) => {
 
       <NumberList 
           newPersonList={newPersonList}
+          setPersons={setPersons}
+          persons={persons}
+	  deletePerson={deletePerson}
       />
 
     </div>
