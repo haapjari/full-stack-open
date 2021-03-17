@@ -8,9 +8,9 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 
 | osa  | tavoite  | suoritettu | suorituspäivämäärä |
 | ---  | ---      | ---        | ---                |
-| 0    | 6        | 6          | 15.3.2020          |
-| 1    | 14       | 14         | 18.8.2020          |
-| 2    | 13       | 13         |                    |
+| 0    | 6        | **6**      | 15.3.2020          |
+| 1    | 14       | **14**     | 18.8.2020          |
+| 2    | 13       | **14**     |                    |
 | 3    | 18       | 0          |                    |
 | 4    | 11       | 0          |                    |
 | 5    | 16       | 0          |                    |
@@ -23,7 +23,7 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 
 | suoritettu yhteensä |
 | ---                 |
-| 31                  |
+| **34**              |
 
 ---
 
