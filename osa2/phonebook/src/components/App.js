@@ -39,10 +39,7 @@ const App = ( props ) => {
 
 /* ------------------------------------------------- */
 
-	/* TODO: 
-	 * Is this functionality supposed to be here or in the NumberList.js file (?)
-	 */
-
+	// This could be moved to NumberList
       const addName = (event) => {
        	 event.preventDefault()
   
@@ -99,18 +96,7 @@ const App = ( props ) => {
         }
     }    
 
-	/* Delete Functinality.
-	 * 	--> TODO: Find the id of the object, which has the delete button.
-	 * 	--> Find the index of certain id in persons list.
-	 * 	--> Delete that entry from the list with splice.
-	 * 	--> Create personService to call the delete to API
-	 * 	--> Update state and log the succesfully deleted entry to the console.
-	 */
-
 	const deletePerson = (name, id) => {
-		// console.log('testing delete')
-		// console.log(id) // this is a mouse event
-		// const id = 1
 		return () => {
 			if (window.confirm(`Confirm deletion of ${name}`)) {
 				console.log("attempting the delete")
@@ -126,21 +112,6 @@ const App = ( props ) => {
 				})
 			}
 		}
-		/*
-		console.log(name)
-
-		const index = persons.indexOf(id)
-		if (index > -1) {
-			persons.splice(index, 1)
-		}
-
-	        personService
-        	    .deleteId(id)
-                	.then(returnedPerson => {
-	                  setPersons(persons.splice(index, 1))
-        	          console.log(`${id} succesfully deleted from phonebook`)
-                	})
-		*/
  	}
 
   return (
