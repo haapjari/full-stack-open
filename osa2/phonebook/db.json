@@ -1,3 +1,14 @@
 {
-  "persons": []
+  "persons": [
+    {
+      "name": "Test",
+      "number": "123",
+      "id": 1
+    },
+    {
+      "name": "AasdAaasd",
+      "number": "123",
+      "id": 3
+    }
+  ]
 }

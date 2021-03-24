@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Note from './Note'
 import noteService from '../services/notes'
+import Notification from '../components/Notification'
 
 /* ------------------------------------------------------------ */
 
 const App = ( props ) => {
-    const [notes, setNotes] = useState([])
-    const [newNote, setNewNote] = useState('')
-    const [showAll, setShowAll] = useState(true)
+	const [notes, setNotes] = useState([])
+	const [newNote, setNewNote] = useState('')
+	const [showAll, setShowAll] = useState(true)
+	const [errorMessage, setErrorMessage] = useState('some error happened...')
+	
 
     useEffect(() => {
         noteService
@@ -18,7 +21,21 @@ const App = ( props ) => {
                 })
     }, [])
 
-    const addNote = (event) => {
+	const Footer = () => {
+		const footerStyle = {
+			color: 'green',
+			fontStyle: 'italic',
+			fontSize: 16 
+		}
+
+		return (
+			<div>
+				<em>Note app, Department of Computer Science, University of Helsinki</em>
+			</div>
+		)
+	}
+
+	const addNote = (event) => {
         event.preventDefault() // this makes sure that page doesn not reload
 
         /* create new object for the note, and it will reiceve its content from the components newNote state */
@@ -55,30 +72,28 @@ const App = ( props ) => {
         : notes.filter(note => note.important === true)
 
     const toggleImportanceOf = (id) => {
-        const url = `http://localhost:3001/notes/${id}`
-        const note = notes.find(n => n.id === id)
-        const changedNote = { ...note, important: !note.important }
-
-        axios.put(url, changedNote).then(response => {
-            setNotes(notes.map(note => note.id !== id ? note : response.data))
-        })
-
-        noteService
-            .update(id, changedNote)
-            .then(returnedNote => {
-                setNotes(notes.map(note => note.id !== id ? note : returnedNote))
-            })
-            .catch(error => {
-                alert(
-                    `the note '${note.content}' was already deleted from the server`
-                )
-            })
-
+	const note = notes.find(n => n.id === id)
+	const changedNote = { ...note, important: !note.important }
+	
+	noteService 
+		.update(changedNote).then(returnedNote => {
+		setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+	    })
+		.catch(error => {
+			setErrorMessage(
+				`Note '${note.content}' was already removed from server`
+			)
+			setTimeout(() => {
+				setErrorMessage(null)
+			}, 5000)
+			setNotes(notes.filter(n => n.id !== id))
+	    })
     }
 
     return (
       <div>
             <h1>Notes</h1>
+	    <Notification message={errorMessage} />
             <div>
                 <button onClick={() => setShowAll(!showAll)}>
                     show { showAll ? 'important' : 'all' }
@@ -100,6 +115,7 @@ const App = ( props ) => {
                 />
                 <button type="submit">save</button>
             </form>
+	    <Footer />
       </div>
     )
 }

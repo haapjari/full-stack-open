@@ -3,6 +3,8 @@ import PersonForm from './PersonForm'
 import Search from './Search'
 import NumberList from './NumberList'
 import personService from '../services/persons'
+import Notification from './Notification'
+import PositiveNotification from './PositiveNotification'
 
 const App = ( props ) => {
 
@@ -14,6 +16,9 @@ const App = ( props ) => {
 	const [newFilter, setNewFilter] = useState('')
 	// TODO: Document this functionality.  
 	const [newPersonList, setNewPersonList] = useState([])
+	const [errorMessage, setErrorMessage] = useState('')
+	const [succesMessage, setSuccessMessage] = useState('')
+	
 
   useEffect(() => {
     personService
@@ -68,7 +73,13 @@ const App = ( props ) => {
         }
   
         if (checkValue === 1) {
-          alert(`${newName} is already added to phonebook`)
+	  setErrorMessage = (
+		`${newName} is already added to phonebook`
+	  )
+	  setTimeout(() => {
+		setErrorMessage(null)
+	  }, 5000)
+          // alert(`${newName} is already added to phonebook`)
           setNewName('') 
           setNewNumber('')
         } else {
@@ -88,7 +99,13 @@ const App = ( props ) => {
               setNewNumber('')
           })
 
-          console.log(`${newName} succesfully added to phonebook`)
+        setErrorMessage(
+		`${newName} succesfully added to phonebook`
+	)
+	setTimeout(() => {
+		setErrorMessage(null)
+	}, 5000)
+	console.log(`${newName} succesfully added to phonebook`)
 
 	// TODO: Are these necessary?
 	  setNewName('')
@@ -108,6 +125,12 @@ const App = ( props ) => {
 					setNewNumber('')
 				})
 				.catch(error => {
+					setErrorMessage(
+						`${name} was already deleted from the server`
+					)
+					setTimeout(() => {
+						setErrorMessage(null)
+					}, 5000)
 					setPersons(persons.filter(n => n.name !== name))
 				})
 			}
@@ -118,33 +141,36 @@ const App = ( props ) => {
     <div>
       <h2>Phonebook</h2>
 
-      <Search 
-        newFilter={newFilter}
-        handleFilterChange={handleFilterChange}
-        setNewPersonList={setNewPersonList}
-        persons={persons}
-      />
+	<Notification message={errorMessage} />
+	<PositiveNotification message={errorMessage} /> 
 
-      <PersonForm 
-          persons={persons}
-          addName={addName}
-          setPersons={setPersons}
-          newName={newName}
-          setNewName={setNewName}
-          newNumber={newNumber}
-          setNewNumber={setNewNumber}
-          newPersonList={setNewPersonList}
-          setNewPersonList={setNewPersonList}
-          handleNameChange={handleNameChange}
-          handleNumberChange={handleNumberChange}
-      />
+	<Search 
+		newFilter={newFilter}
+		handleFilterChange={handleFilterChange}
+		setNewPersonList={setNewPersonList}
+		persons={persons}
+	/>
 
-      <NumberList 
-          newPersonList={newPersonList}
-          setPersons={setPersons}
-          persons={persons}
-	  deletePerson={deletePerson}
-      />
+	<PersonForm 
+		persons={persons}
+	  	addName={addName}
+	  	setPersons={setPersons}
+	        newName={newName}
+        	setNewName={setNewName}
+		newNumber={newNumber}
+		setNewNumber={setNewNumber}
+		newPersonList={setNewPersonList}
+		setNewPersonList={setNewPersonList}
+        	handleNameChange={handleNameChange}
+		handleNumberChange={handleNumberChange}
+	/>
+
+	<NumberList 
+		newPersonList={newPersonList}
+		setPersons={setPersons}
+		persons={persons}
+		deletePerson={deletePerson}
+	/>
 
     </div>
   )
