@@ -1,6 +1,6 @@
-# Full-Stack Open 2020
+# Full-Stack Open 2021
 
-Full-Stack Open 2020 - https://fullstackopen.com (University Work)
+Full-Stack Open 2021 - https://fullstackopen.com (University Work)
 
 ---
 
@@ -10,7 +10,7 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 | ---  | ---      | ---        | ---                |
 | 0    | 6        | **6**      | 15.3.2020          |
 | 1    | 14       | **14**     | 18.8.2020          |
-| 2    | 13       | **15**     | 24.3.2021          |
+| 2    | 13       | **16**     | 24.3.2021          |
 | 3    | 18       | 0          |                    |
 | 4    | 11       | 0          |                    |
 | 5    | 16       | 0          |                    |
@@ -23,7 +23,7 @@ Full-Stack Open 2020 - https://fullstackopen.com (University Work)
 
 | suoritettu yhteensä |
 | ---                 |
-| **35**              |
+| **36**              |
 
 ---
 
