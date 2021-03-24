@@ -4,7 +4,6 @@ import Search from './Search'
 import NumberList from './NumberList'
 import personService from '../services/persons'
 import Notification from './Notification'
-import PositiveNotification from './PositiveNotification'
 
 const App = ( props ) => {
 
@@ -17,7 +16,7 @@ const App = ( props ) => {
 	// TODO: Document this functionality.  
 	const [newPersonList, setNewPersonList] = useState([])
 	const [errorMessage, setErrorMessage] = useState('')
-	const [succesMessage, setSuccessMessage] = useState('')
+	const [informationMessage, setInformationMessage] = useState('')
 	
 
   useEffect(() => {
@@ -73,12 +72,21 @@ const App = ( props ) => {
         }
   
         if (checkValue === 1) {
-	  setErrorMessage = (
-		`${newName} is already added to phonebook`
-	  )
-	  setTimeout(() => {
-		setErrorMessage(null)
-	  }, 5000)
+			console.log(`${newName} is already added to phonebook`)
+			setErrorMessage (
+				`${newName} is already added to phonebook`
+			)
+			setTimeout(() => {
+				setErrorMessage(null)
+			}, 5000)
+				/*
+		setErrorMessage = (
+			`${newName} is already added to phonebook`
+		)
+		setTimeout(() => {
+			setErrorMessage(null)
+		}, 5000)
+		*/
           // alert(`${newName} is already added to phonebook`)
           setNewName('') 
           setNewNumber('')
@@ -99,11 +107,11 @@ const App = ( props ) => {
               setNewNumber('')
           })
 
-        setErrorMessage(
+    setInformationMessage(
 		`${newName} succesfully added to phonebook`
 	)
 	setTimeout(() => {
-		setErrorMessage(null)
+		setInformationMessage(null)
 	}, 5000)
 	console.log(`${newName} succesfully added to phonebook`)
 
@@ -123,6 +131,13 @@ const App = ( props ) => {
 					setPersons(persons.filter(n => n.id !== id))
 					setNewName('')
 					setNewNumber('')
+					setInformationMessage(
+						`${name} was succesfully deleted`
+					)
+					setTimeout(() => {
+						setInformationMessage(null)
+					}, 5000)
+					console.log(`deletation of ${name} was succesful`)
 				})
 				.catch(error => {
 					setErrorMessage(
@@ -137,13 +152,17 @@ const App = ( props ) => {
 		}
  	}
 
+	 // <PositiveNotification message={errorMessage} /> 
+
   return (
     <div>
       <h2>Phonebook</h2>
 
-	<Notification message={errorMessage} />
-	<PositiveNotification message={errorMessage} /> 
-
+	<Notification 
+		errorMessage={errorMessage}
+		informationMessage={informationMessage}
+	/>
+	
 	<Search 
 		newFilter={newFilter}
 		handleFilterChange={handleFilterChange}
