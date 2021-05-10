@@ -1,3 +1,4 @@
+const { response } = require('express')
 const express = require('express')
 const app = express()
 
@@ -35,6 +36,19 @@ app.get('/info', (req, res) => {
 
 app.get('/api/persons', (req, res) => {
     res.json(persons)
+})
+
+// yksittäisen resurssin hakeminen
+app.get('/api/persons/:id', (request, response) => {
+    const id = Number(request.params.id)
+    const person = persons.find(person => {
+      return person.id === id
+    })
+    if (person) {
+        response.json(person)
+    } else {
+        response.status(404).end()
+    }
 })
 
 const PORT = 3001
