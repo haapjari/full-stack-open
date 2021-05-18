@@ -4,6 +4,9 @@ const app = express()
 
 app.use(express.json())
 
+// näin otetaan käyttöön middleware
+app.use(requestLogger)
+
 let notes = [
     {
         id: 1,
@@ -59,6 +62,22 @@ app.post('/api/notes', (request, response) => {
     console.log(note)
     response.json   (note)
 })
+
+/* ------------------------ */
+/* ------------------------ */
+/* ------------------------ */
+
+const requestLogger = (request, response, next) => {
+    console.log('Method:', request.method)
+    console.log('Path: ', request.path)
+    console.log('Body: ', request.body)
+    console.log('---')
+    next()
+}
+
+/* ------------------------ */
+/* ------------------------ */
+/* ------------------------ */
 
 const PORT = 3001
 app.listen(PORT, () => {
