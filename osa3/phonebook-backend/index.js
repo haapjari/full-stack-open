@@ -2,6 +2,8 @@ const { response } = require('express')
 const express = require('express')
 const app = express()
 
+app.use(express.json())
+
 let persons = [
     {
         id: 1,
@@ -58,6 +60,65 @@ app.get('/api/persons/:id', (request, response) => {
         response.status(404).end()
     }
 })
+
+/* -------------------------------- */
+/* -------------------------------- */
+/* -------------------------------- */
+
+// numeroiden lisäys
+const generateId = () => {
+    const maxId = persons.length > 0
+        ? Math.max(...persons.map(n => n.id))
+        : 0
+    return maxId + 1
+}
+
+app.post('/api/persons', (request, response) => {
+    const body = request.body
+
+    if (!body.name) {
+        return response.status(400).json({
+            error: 'name missing'
+        })
+    }
+
+    if (!body.number) {
+        return response.status(400).json({
+            error: 'number missing'
+        })
+    }
+
+    var hasMatch = false;
+
+    for (var index = 0; index < persons.length; ++index) {
+        var comparedObject = persons[index];
+
+        if (comparedObject.name == body.name) {
+            hasMatch = true;
+            break;
+        }
+    }
+
+    if (hasMatch == true) {
+        return response.status(400).json({
+            error: 'name must be unique'
+        })
+    }
+
+    const person = {
+        id : generateId(),
+        name: body.name,
+        number: body.number,
+    }
+
+    persons = persons.concat(person)
+
+    response.json(person)
+})
+
+/* -------------------------------- */
+/* -------------------------------- */
+/* -------------------------------- */
 
 const PORT = 3001
 app.listen(PORT, () => {
