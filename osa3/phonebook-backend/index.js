@@ -1,8 +1,18 @@
 const { response } = require('express')
 const express = require('express')
 const app = express()
+const morgan = require('morgan')
 
 app.use(express.json())
+
+// otetaan käyttöön morgan middleware
+// käytetään tiny konfiguraation mukaisesti
+app.use(morgan('tiny'))
+
+// luodaan token metodi
+morgan.token('host', function(req, res) {
+    return req.hostname;
+})
 
 let persons = [
     {
