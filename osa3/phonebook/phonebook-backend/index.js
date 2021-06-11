@@ -141,7 +141,15 @@ app.post('/api/persons', (request, response) => {
 /* -------------------------------- */
 /* -------------------------------- */
 
+var server_port = process.env.YOUR_PORT || process.env.PORT || 3001;
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+app.listen(server_port, server_host, function() {
+    console.log('Running on port %d', server_port);
+});
+
+/*
 const PORT = process.env.port || 3001
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`)
 })
+*/
